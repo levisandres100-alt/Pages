@@ -1,0 +1,69 @@
+/* 1. DEFINICIÓN DE VARIABLES DE COLOR */
+:root {
+  --primary: #e63946;        /* Rojo principal para los botones */
+  --primary-hover: #c1121f;  /* Rojo un poco más oscuro cuando pasás el mouse */
+  --btn-text: #ffffff;       /* Texto en BLANCO para que resalte bien sobre el rojo */
+  --dark: #1d3557;
+  --light: #f1faee;
+}
+
+/* 2. REGLA GENERAL PARA BOTONES Y ENLACES TIPO BOTÓN */
+button, 
+.btn, 
+.sidebar-menu li a, 
+.category-card {
+  background-color: var(--primary) !important;
+  color: var(--btn-text) !important;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+/* Efecto cuando se pasa el cursor sobre los botones */
+button:hover, 
+.btn:hover, 
+.sidebar-menu li a:hover, 
+.category-card:hover {
+  background-color: var(--primary-hover) !important;
+  color: #ffffff !important;
+}
+
+
+/* ==========================================
+   CORRECCIÓN DEFINITIVA DE TEXTOS EN CARRITO
+   ========================================== */
+
+/* 1. Fondo del modal y color base del texto */
+#modal-carrito > div {
+  background-color: #ffffff !important;
+  color: #1a1a1a !important;
+}
+
+/* 2. Título "Tu Pedido" y divisor */
+#modal-carrito h2, 
+#modal-carrito strong, 
+#modal-carrito span {
+  color: #1a1a1a !important;
+  opacity: 1 !important;
+}
+
+/* 3. Textos e ítems generados dinámicamente por carrito.js */
+#items-carrito, 
+#items-carrito * {
+  color: #1a1a1a !important;   /* Fuerza texto negro/oscuro */
+  opacity: 1 !important;        /* Elimina lo opaco/transparente */
+  font-weight: 600 !important;   /* Le da más realce y nitidez a las letras */
+}
+
+/* 4. Respetar el botón verde de WhatsApp con texto blanco */
+#modal-carrito button {
+  color: #ffffff !important;
+  opacity: 1 !important;
+}
+/* TÍTULOS PRINCIPALES  */
+h1 {
+  color: #e63946 !important; /* Rojo oficial */
+  text-align: center;
+}
