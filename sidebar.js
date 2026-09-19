@@ -2,6 +2,8 @@ document.addEventListener("DOMContentLoaded", function () {
     const sidebarContainer = document.getElementById("sidebar-container");
     if (!sidebarContainer) return;
 
+    
+
     // 1. Inyección de Estilos CSS del Sidebar
     const style = document.createElement("style");
     style.innerHTML = `
@@ -98,11 +100,12 @@ document.addEventListener("DOMContentLoaded", function () {
         .sidebar-menu a:hover { background: rgba(0,0,0,0.06); }
         .sidebar-divider { border: none; border-top: 1px solid rgba(0,0,0,0.1); margin: 20px 0; }
 
+        /* Estilos protegidos para los botones del menú */
         .btn-sidebar-call {
             display: block;
             width: 100%;
-            background-color: #007bff;
-            color: white;
+            background-color: #007bff !important; /* Forzado a azul */
+            color: white !important;
             border: none;
             padding: 10px;
             border-radius: 6px;
@@ -112,11 +115,12 @@ document.addEventListener("DOMContentLoaded", function () {
             margin-bottom: 8px;
             text-align: center;
         }
+        
         .btn-sidebar-map {
             display: block;
             width: 100%;
-            background-color: #6c757d;
-            color: white;
+            background-color: #6c757d !important; /* Forzado a gris */
+            color: white !important;
             border: none;
             padding: 10px;
             border-radius: 6px;
@@ -125,24 +129,17 @@ document.addEventListener("DOMContentLoaded", function () {
             cursor: pointer;
             text-align: center;
         }
-
+// esto hace que los botones se vean en cuadrados peque
         .theme-subtitle { font-size: 13px; color: #666; margin-bottom: 10px; }
         .theme-buttons { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-        .btn-theme {
-            border: none;
-            padding: 10px;
-            border-radius: 6px;
-            font-weight: bold;
-            cursor: pointer;
-            font-size: 13px;
-            transition: opacity 0.2s;
-        }
-        .btn-theme:hover { opacity: 0.85; }
-        .theme-light { background-color: #f4f6f8; color: #333; border: 1px solid #ccc; }
-        .theme-dark { background-color: #1e1e1e; color: #fff; }
-        .theme-coffee { background-color: #4a2822; color: #d7ccc8; }
-        .theme-blue { background-color: #5073a9; color: #e3f2fd; }
 
+
+        /* Colores de botones de tema protegidos */
+        .theme-light { background-color: #f4f6f8 !important; color: #333 !important; border: 1px solid #ccc !important; }
+        .theme-dark { background-color: #1e1e1e !important; color: #fff !important; }
+        .theme-coffee { background-color: #4a2822 !important; color: #d7ccc8 !important; }
+        .theme-blue { background-color: #5073a9 !important; color: #e3f2fd !important; }
+        
         /* TEMAS ACTIVOS */
         html.theme-dark, html.theme-dark body {
             background-color: #121212 !important;
@@ -210,7 +207,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 <div class="sidebar-section">
                     <h4>🏍️ Repuestos para Moto</h4>
                     <ul class="sidebar-menu">
-                        <li><a href="categoriasm.html">📋 Categorías Moto</a></li>
+                        <li><a href="categoriass.html">📋 Categorías Moto</a></li>
                         <li><a href="aceitesylubricantesm.html">🛢️ Aceites y Lubricantes</a></li>
                         <li><a href="sistemasdefrenosm.html">🛞 Sistemas de Frenos</a></li>
                         <li><a href="motorydistribuicionm.html">🏎️ Motor y Distribución</a></li>
