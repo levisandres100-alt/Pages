@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auto-Motocentro</title>
+    <link rel="stylesheet" href="estilos.css">
+    
+    <!-- SCRIPT ANTI-PARPADEO DE TEMAS -->
+    <script>
+      (function() {
+        const savedTheme = localStorage.getItem('selectedTheme');
+        if (savedTheme && savedTheme !== 'light') {
+          document.documentElement.classList.add('theme-' + savedTheme);
+        }
+      })();
+    </script>
+
+    <!-- Supabase CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+      const SUPABASE_URL = 'https://exsegshoihdoofefjryt.supabase.co';
+      const SUPABASE_KEY = 'sb_publishable_bN19uH5ODfBYvVTnW0oE7g_cFUqMaRN';
+      const db = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+    </script>
+
+    <style>
+        body {
+            background-color: #f4f6f9;
+            font-family: 'Arial', sans-serif;
+            margin: 40px auto;
+            max-width: 600px;
+            padding: 20px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            color: #ffd711;
+            text-align: center;
+            font-size: 32px;
+            margin-bottom: 5px;
+        }
+
+        h2 {
+            color: #555555;
+            text-align: center;
+            font-size: 18px;
+            font-weight: normal;
+            margin-bottom: 25px;
+        }
+
+        hr {
+            border: 0;
+            border-top: 1px solid #eee;
+            margin: 20px 0;
+        }
+
+        .logo-negocio {
+            display: block;
+            margin: 0 auto 20px auto;
+            max-width: 80%;
+            height: auto;
+        }
+
+        button, .btn-whatsapp {
+            display: inline-block;
+            background-color: #25D366;
+            color: white;
+            border: none;
+            padding: 12px 15px;
+            font-size: 15px;
+            font-weight: bold;
+            border-radius: 8px;
+            width: 100%;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
+
+        button:hover, .btn-whatsapp:hover {
+            background-color: #128C7E;
+        }
+
+        .btn-secundario {
+            background-color: #333;
+        }
+        .btn-secundario:hover {
+            background-color: #555;
+        }
+    </style>
+</head>
+<body>
+
+    <img src="logo.png" alt="Logo de Auto-Motocentro" class="logo-negocio">
+    
+    <h1>Auto-Motocentro</h1>
+    <h2>Todo lo que tu Automóvil y Motocicleta necesita en un solo lugar</h2>
+    <p>Ofrecemos repuestos de alta calidad con la mejor atención. ¡Cotizá con nosotros!</p>
+
+    <hr>
+
+    <a href="categoria.html">
+        <button type="button" class="btn-secundario">¿Buscás un repuesto específico por categoría?</button>
+    </a>
+    
+    <a href="https://wa.me/50231841198?text=Hola,%20busco%20un%20repuesto" target="_blank">
+        <button type="button">Cotizar por WhatsApp 📲</button>
+    </a>
+
+    <!-- BOTÓN FLOTANTE DEL CARRITO -->
+    <div id="boton-carrito-flotante" onclick="document.getElementById('modal-carrito').style.display='block'" style="position:fixed; bottom:20px; right:20px; background:#e63946; color:#fff; padding:12px 20px; border-radius:50px; cursor:pointer; z-index:1000; font-weight:bold; box-shadow:0 4px 10px rgba(0,0,0,0.3);">
+      🛒 Carrito (<span id="cant-carrito">0</span>)
+    </div>
+
+    <!-- MODAL DEL CARRITO -->
+    <div id="modal-carrito" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:1001;">
+      <div style="background:#fff; width:90%; max-width:400px; margin:100px auto; padding:20px; border-radius:8px; position:relative;">
+        <span onclick="document.getElementById('modal-carrito').style.display='none'" style="position:absolute; right:15px; top:10px; cursor:pointer; font-size:20px; font-weight:bold;">&times;</span>
+        
+        <h2 style="margin-top:0;">Tu Pedido</h2>
+        <hr style="margin-bottom:15px;">
+        
+        <div id="items-carrito"></div>
+        
+        <div style="margin-top:20px; text-align:right;">
+          <strong>Total: <span id="total-carrito">Q0.00</span></strong>
+        </div>
+
+        <button onclick="enviarPedidoWhatsApp('50231841198')" style="width:100%; background:#25D366; color:#fff; border:none; padding:12px; margin-top:15px; border-radius:5px; font-weight:bold; cursor:pointer;">
+          Pedir todo por WhatsApp
+        </button>
+      </div>
+    </div>
+    
+    <!-- CONTENEDOR UNIFICADO DEL SIDEBAR -->
+    <div id="sidebar-container"></div>
+
+    <!-- SCRIPTS -->
+    <script src="carrito.js"></script>
+    <script src="sidebar.js"></script>
+
+</body>
+</html>
