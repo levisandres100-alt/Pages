@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Categorías - Auto-motocentro </title>
+    <link rel="stylesheet" href="estilos.css">
+    
+    <style>
+        .btn-sidebar-toggle {
+          position: fixed;
+          top: 15px;
+          left: 15px;
+          width: auto;
+          z-index: 999;
+          background-color: var(--primary, #c1121f);
+          color: white;
+          border: none;
+          font-size: 22px;
+          padding: 8px 14px;
+          border-radius: 8px;
+          cursor: pointer;
+          box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+        }
+        body {
+            background-color: #eadfdf;
+            font-family: 'Arial', sans-serif; 
+            margin: 40px auto;
+            max-width: 600px; 
+            padding: 20px;
+            background: rgb(248, 247, 247); 
+            border-radius: 12px; 
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1); 
+        }
+
+        h1 {
+            color: #ffd711; 
+            text-align: center;
+            font-size: 28px;
+        }
+
+        h2 {
+            color: #555;
+            font-size: 20px;
+            margin-top: 20px;
+        }
+
+        ul {
+            list-style: none; 
+            padding: 0;
+        }
+
+        /* Estilo para el botón de regresar */
+        .btn-regresar {
+            display: inline-block;
+            text-align: center;
+            background-color: #555;
+            color: white;
+            text-decoration: none;
+            padding: 10px 15px;
+            font-weight: bold;
+            border-radius: 6px;
+            margin-top: 20px;
+        }
+
+       /* Contenedor principal de las 2 columnas */
+.grid-botones {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* 2 columnas iguales */
+    gap: 15px;                      /* Espacio entre las tarjetas */
+    margin: 25px 0;
+    width: 100%;
+}
+
+/* La tarjeta completa que hace de enlace */
+.tarjeta-categoria {
+    display: flex;
+    flex-direction: column;         /* Pone la imagen ARRIBA y el botón ABAJO */
+    align-items: center;
+    text-decoration: none;
+    background-color: #ffffff;      /* Fondo blanco para que destaque la foto */
+    border-radius: 12px;
+    padding: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.tarjeta-categoria:hover {
+    transform: translateY(-4px);    /* Efecto de elevación al pasar el mouse/dedo */
+    box-shadow: 0 6px 15px rgba(0,0,0,0.18);
+}
+
+/* Estilo para las imágenes de Motocicleta y Automóvil */
+.imagen-categoria {
+    width: 100%;
+    height: 120px;                  /* Altura fija para que ambas fotos queden alineadas */
+    object-fit: contain;              /* Ajusta la foto sin deformarla ni estirarla feo */
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+/* Estilo del botón que queda debajo de la foto */
+.tarjeta-categoria button {
+    background-color: #ffd711;
+    color: #ffffff;
+    border: none;
+    padding: 10px 15px;
+    font-size: 15px;
+    font-weight: bold;
+    border-radius: 6px;
+    width: 100%;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.tarjeta-categoria button:hover {
+    background-color: #b82c2c;
+}
+
+        /* --- BOTÓN FLOTANTE DEL MENÚ --- */
+        .btn-sidebar-toggle {
+          position: fixed;
+          top: 15px;
+          left: 15px;
+          z-index: 999;
+          background-color: var(--primary, #ffd711);
+          color: rgb(255, 255, 255);
+          border: none;
+          font-size: 22px;
+          padding: 8px 14px;
+          border-radius: 8px;
+          cursor: pointer;
+          box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+          transition: transform 0.2s ease;
+        }
+        .btn-sidebar-toggle:hover {
+          transform: scale(1.05);
+        }
+
+        /* --- PANEL LATERAL Y OVERLAY --- */
+        .sidebar-overlay {
+          position: fixed;
+          top: 0; left: 0; width: 100%; height: 100%;
+          background: rgba(0,0,0,0.5);
+          z-index: 1000;
+          opacity: 0;
+          visibility: hidden;
+          transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        .sidebar-overlay.active {
+          opacity: 1;
+          visibility: visible;
+        }
+
+        .sidebar-panel {
+          position: fixed;
+          top: 0;
+          left: -300px;
+          width: 280px;
+          height: 100%;
+          background-color: var(--bg-sidebar, #ffffff);
+          color: var(--text-sidebar, #333333);
+          z-index: 1001;
+          box-shadow: 4px 0 15px rgba(0,0,0,0.3);
+          transition: left 0.3s ease;
+          display: flex;
+          flex-direction: column;
+        }
+        .sidebar-panel.active {
+          left: 0;
+        }
+
+        /* Header del Sidebar */
+        .sidebar-header {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding: 18px 20px;
+          border-bottom: 1px solid rgba(0,0,0,0.1);
+        }
+        .sidebar-header h3 { margin: 0; font-size: 20px; }
+        .btn-close {
+          background: none; border: none; font-size: 28px;
+          cursor: pointer; color: inherit;
+        }
+
+        /* Contenido del Sidebar */
+        .sidebar-content { padding: 20px; overflow-y: auto; }
+        .sidebar-section h4 { margin-top: 0; font-size: 14px; text-transform: uppercase; color: #888; letter-spacing: 1px; }
+        .sidebar-menu { list-style: none; padding: 0; margin: 15px 0; }
+        .sidebar-menu li { margin-bottom: 12px; }
+        .sidebar-menu a {
+          text-decoration: none;
+          color: inherit;
+          font-weight: bold;
+          font-size: 15px;
+          display: block;
+          padding: 8px 10px;
+          border-radius: 6px;
+          transition: background 0.2s;
+        }
+        .sidebar-menu a:hover { background: rgba(0,0,0,0.06); }
+        .sidebar-divider { border: none; border-top: 1px solid rgba(0,0,0,0.1); margin: 20px 0; }
+
+        /* Botones de Temas */
+        .theme-subtitle { font-size: 13px; color: #666; margin-bottom: 10px; }
+        .theme-buttons { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+        .btn-theme {
+          border: none;
+          padding: 10px;
+          border-radius: 6px;
+          font-weight: bold;
+          cursor: pointer;
+          font-size: 13px;
+          transition: opacity 0.2s;
+        }
+        .btn-theme:hover { opacity: 0.85; }
+        .theme-light { background-color: #f4f6f8; color: #333; border: 1px solid #ccc; }
+        .theme-dark { background-color: #1e1e1e; color: #ffffff; }
+        .theme-coffee { background-color: #4a2822; color: #d7ccc8; }
+        .theme-blue { background-color: #5073a9; color: #e3f2fd; }
+
+        /* --- TEMAS --- */
+        body.theme-dark {
+          background-color: #121212 !important;
+          color: #e0e0e0 !important;
+          --bg-sidebar: #1e1e1e;
+          --text-sidebar: #ffffff;
+        }
+        body.theme-coffee {
+          background-color: #2b1b17 !important;
+          color: #d7ccc8 !important;
+          --bg-sidebar: #3e2723;
+          --text-sidebar: #efebe9;
+        }
+        body.theme-blue {
+          background-color: #5073a9 !important;
+          color: #e6f1ff !important;
+          --bg-sidebar: #5073a9;
+          --text-sidebar: #ffffff;
+        }
+        /* Variables por defecto (Tema Claro) */
+:root {
+    --bg-tarjeta: #ffffff;
+    --border-tarjeta: #eeeeee;
+    --texto-tarjeta: #333333;
+}
+
+/* Variables para Tema Oscuro */
+body.theme-dark {
+    --bg-tarjeta: #1e1e1e;
+    --border-tarjeta: #333333;
+    --texto-tarjeta: #ffffff;
+}
+
+/* Variables para Tema Café */
+body.theme-coffee {
+    --bg-tarjeta: #3e2723;
+    --border-tarjeta: #4e342e;
+    --texto-tarjeta: #efebe9;
+}
+
+/* Variables para Tema Azul */
+body.theme-blue {
+    --bg-tarjeta: #3b5998;
+    --border-tarjeta: #2d4373;
+    --texto-tarjeta: #ffffff;
+}
+
+/* Modificá la clase .tarjeta-categoria para que consumption las variables */
+.tarjeta-categoria {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    background-color: var(--bg-tarjeta); /* <--- Usa la variable */
+    border: 1px solid var(--border-tarjeta);
+    color: var(--texto-tarjeta);
+    border-radius: 12px;
+    padding: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.3s ease;
+}
+    </style>
+</head>
+<body>
+
+    <h1>Categorías de Repuestos</h1>
+    <p style="text-align: center;">Seleccione el tipo de vehículo para ver el catálogo.</p>
+
+    <!-- CONTENEDOR DE TARJETAS EN GRID -->
+<div class="grid-botones">
+
+  <!-- TARJETA 1: MOTOCICLETA -->
+  <a href="categorias.html" class="tarjeta-categoria">
+    <img src="auto.jpg" alt="Motocicleta" class="imagen-categoria">
+    <button type="button">Automóvil</button>
+  </a>
+
+  <!-- TARJETA 2: AUTOMÓVIL -->
+  <a href="categoriass.html" class="tarjeta-categoria">
+    <img src="moto.jpg" alt="Automóvil" class="imagen-categoria">
+    <button type="button">Motocicleta</button>
+  </a>
+
+</div>
+
+    <!-- Enlace para regresar limpio y único -->
+    <a href="index.html" class="btn-regresar">← Volver al Inicio</a>
+
+    <script src="carrito.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+      const SUPABASE_URL = 'https://exsegshoihdoofefjryt.supabase.co';
+      const SUPABASE_KEY = 'sb_publishable_bN19uH5ODfBYvVTnW0oE7g_cFUqMaRN';
+      const db = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+    </script>
+
+    <!-- BOTÓN FLOTANTE DEL CARRITO -->
+    <div id="boton-carrito-flotante" onclick="document.getElementById('modal-carrito').style.display='block'" style="position:fixed; bottom:20px; right:20px; background:#e63946; color:#fff; padding:12px 20px; border-radius:50px; cursor:pointer; z-index:1000; font-weight:bold; box-shadow:0 4px 10px rgba(0,0,0,0.3);">
+      🛒 Carrito (<span id="cant-carrito">0</span>)
+    </div>
+
+    <!-- MODAL DEL CARRITO -->
+    <div id="modal-carrito" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:1001;">
+      <div style="background:#fff; width:90%; max-width:400px; margin:100px auto; padding:20px; border-radius:8px; position:relative; color:#333;">
+        <span onclick="document.getElementById('modal-carrito').style.display='none'" style="position:absolute; right:15px; top:10px; cursor:pointer; font-size:20px; font-weight:bold;">&times;</span>
+        
+        <h2 style="margin-top:0;">Tu Pedido</h2>
+        <hr style="margin-bottom:15px;">
+        
+        <div id="items-carrito"></div>
+        
+        <div style="margin-top:20px; text-align:right;">
+          <strong>Total: <span id="total-carrito">Q0.00</span></strong>
+        </div>
+
+        <button onclick="enviarPedidoWhatsApp('50231841198')" style="width:100%; background:#25D366; color:#fff; border:none; padding:12px; margin-top:15px; border-radius:5px; font-weight:bold; cursor:pointer;">
+          Pedir todo por WhatsApp
+        </button>
+      </div>
+    </div>
+
+     <!-- CONTENEDOR UNIFICADO DEL SIDEBAR -->
+    <div id="sidebar-container"></div>
+
+    <!-- SCRIPTS -->
+    <script src="carrito.js"></script>
+    <script src="sidebar.js"></script>
+</body>
+</html>
