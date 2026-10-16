@@ -11,7 +11,7 @@
   
   <style>
     :root {
-      --primary: #ffd711;
+      --primary: #1158ff;
       --dark: #1d3557;
       --light: #f1faee;
       --gray: #457b9d;
@@ -61,7 +61,7 @@
       <form id="productForm">
         <div class="form-group">
           <label>Nombre del Producto:</label>
-          <input type="text" id="prodNombre" placeholder="Ej. Aceite Castrol 20W-50" required>
+          <input type="text" id="prodNombre" placeholder="Ej. Galaxy S21" required>
         </div>
 
         <div style="display: flex; gap: 10px;">
@@ -76,16 +76,17 @@
         </div>
 
         <div class="form-group">
-          <label>Categoría y Vehículo:</label>
+          <label>Categoría Smartphone:</label>
           <select id="prodCategoria" required>
-            <optgroup label="Carros 🚗">
-              <option value="aceitesylubricantes">Aceites y Lubricantes (Carros)</option>
-              <option value="sistemadefrenos">Sistema de Frenos (Carros)</option>
-              <option value="motorydistribuicion">Motor y Distribución (Carros)</option>
-              <option value="suspensionyshocks">Suspensión y Shocks (Carros)</option>
-              <option value="baterias">Baterías (Carros)</option>
+            <optgroup label="Smartphones">
+              <option value="samsung">Samsung (Smartphones)</option>
+              <option value="iphone">iPhone (Smartphones)</option>
+              <option value="honor">Honor (Smartphones)</option>
+              <option value="motorola">Motorola (Smartphones)</option>
+              <option value="xiaomi">Xiaomi (Smartphones)</option>
+               <option value="variedad">Variedad (Smartphones)</option>
             </optgroup>
-            <optgroup label="Motos 🏍️">
+            <optgroup label="Accesorios">
               <option value="aceitesylubricantesm">Aceites y Lubricantes (Motos)</option>
               <option value="sistemadefrenosm">Sistema de Frenos (Motos)</option>
               <option value="motorydistribuicionm">Motor y Distribución (Motos)</option>
@@ -97,7 +98,7 @@
 
         <div class="form-group">
           <label>Descripción / Detalle:</label>
-          <textarea id="prodDescripcion" rows="2" placeholder="Ej. Garrafa de 1 Galón..."></textarea>
+          <textarea id="prodDescripcion" rows="2" placeholder="Ej. Espacio, RAM, etc."></textarea>
         </div>
 
         <div class="form-group">
@@ -118,14 +119,15 @@
           <label for="filtroCategoria">Filtrar por categoría:</label>
           <select id="filtroCategoria" onchange="cargarProductos()">
             <option value="todas">Ver todas las categorías</option>
-            <optgroup label="Carros 🚗">
-              <option value="aceitesylubricantes">Aceites y Lubricantes (Carros)</option>
-              <option value="sistemadefrenos">Sistema de Frenos (Carros)</option>
-              <option value="motorydistribuicion">Motor y Distribución (Carros)</option>
-              <option value="suspensionyshocks">Suspensión y Shocks (Carros)</option>
-              <option value="baterias">Baterías (Carros)</option>
+            <optgroup label="martphones">
+              <option value="samsung">Samsung (Smartphones)</option>
+              <option value="iphone">iPhone (Smartphones)</option>
+              <option value="honor">Honor (Smartphones)</option>
+              <option value="motorola">Motorola (Smartphones)</option>
+              <option value="xiaomi">Xiaomi (Smartphones)</option>
+               <option value="variedad">Variedad (Smartphones)</option>
             </optgroup>
-            <optgroup label="Motos 🏍️">
+            <optgroup label="Accesorios">
               <option value="aceitesylubricantesm">Aceites y Lubricantes (Motos)</option>
               <option value="sistemadefrenosm">Sistema de Frenos (Motos)</option>
               <option value="motorydistribuicionm">Motor y Distribución (Motos)</option>
@@ -222,7 +224,7 @@
 
         const imagenUrl = urlData.publicUrl;
 
-        // Determinar el icono según si la categoría es de Moto (termina en 'm') o Carro
+        // Determinar el icono según si la categoría es de Moto (termina en '') o Carro
         const esMoto = categoria.endsWith('m');
         const vehiculo = esMoto ? 'moto' : 'carro';
 
@@ -276,7 +278,7 @@
         const item = document.createElement('div');
         item.className = 'product-item';
         
-        const iconoVehiculo = (prod.categoria && prod.categoria.endsWith('m')) || prod.vehiculo === 'moto' ? '🏍️' : '🚗';
+        const iconoVehiculo = (prod.categoria && prod.categoria.endsWith('m')) || prod.vehiculo === 'moto' ? '🎧' : '📲';
         const precioTxt = `Q${parseFloat(prod.precio).toFixed(2)}`;
         const estadoTxt = prod.stock > 0 
           ? `<span style="color:#2a9d8f; font-weight:bold;">${prod.stock} unids.</span>` 
