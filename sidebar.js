@@ -276,3 +276,19 @@ function setTheme(themeName) {
     }
     localStorage.setItem("selectedTheme", themeName);
 }
+// Función global para cambiar temas (Ya la tenías)
+function setTheme(themeName) {
+    document.documentElement.classList.remove("theme-dark", "theme-coffee", "theme-blue");
+    if (themeName !== "light") {
+        document.documentElement.classList.add("theme-" + themeName);
+    }
+    localStorage.setItem("selectedTheme", themeName);
+}
+
+// 🌟 NUEVO: Recuperar y aplicar el tema guardado apenas abre CUALQUIER página
+(function() {
+    const savedTheme = localStorage.getItem("selectedTheme");
+    if (savedTheme && savedTheme !== "light") {
+        document.documentElement.classList.add("theme-" + savedTheme);
+    }
+})();
