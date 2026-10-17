@@ -2,9 +2,9 @@
 <html lang="es">
 <head>
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-<link rel="manifest" href="/site.webmanifest">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hipercel Linda Vista</title>
@@ -23,9 +23,9 @@
     <!-- Supabase CDN -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
-    const SUPABASE_URL = "https://xvycvutivqtmuebupgpe.supabase.co";
-        const SUPABASE_ANON_KEY = "sb_publishable_as_GTYju2JC6y5x_GkwRFg_P3sOrKZ2";
-      const db = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+      const SUPABASE_URL = "https://xvycvutivqtmuebupgpe.supabase.co";
+      const SUPABASE_ANON_KEY = "sb_publishable_as_GTYju2JC6y5x_GkwRFg_P3sOrKZ2"; // 🔑 Poner tu Key aquí
+      const db = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY); // Corregido SUPABASE_ANON_KEY
     </script>
 
     <style>
@@ -112,9 +112,9 @@
         <button type="button" class="btn-secundario">¿Buscás un celular o accesorio específico por categoría?</button>
     </a>
     
-   <a href="https://wa.me/50251636313?text=Hola,%20información%20sobre%20un%20celular." target="_blank" rel="noopener noreferrer" class="btn-whatsapp">
-    Cotizar por WhatsApp 📲
-</a>
+    <a href="https://wa.me/50251636313?text=Hola,%20información%20sobre%20un%20celular." target="_blank" rel="noopener noreferrer" class="btn-whatsapp">
+        Cotizar por WhatsApp 📲
+    </a>
 
     <!-- BOTÓN FLOTANTE DEL CARRITO -->
     <div id="boton-carrito-flotante" onclick="document.getElementById('modal-carrito').style.display='block'" style="position:fixed; bottom:20px; right:20px; background:#e63946; color:#fff; padding:12px 20px; border-radius:50px; cursor:pointer; z-index:1000; font-weight:bold; box-shadow:0 4px 10px rgba(0,0,0,0.3);">
@@ -135,7 +135,7 @@
           <strong>Total: <span id="total-carrito">Q0.00</span></strong>
         </div>
 
-        <button onclick="enviarPedidoWhatsApp('50231841198')" style="width:100%; background:#25D366; color:#fff; border:none; padding:12px; margin-top:15px; border-radius:5px; font-weight:bold; cursor:pointer;">
+        <button onclick="enviarPedidoWhatsApp('50251636313')" style="width:100%; background:#25D366; color:#fff; border:none; padding:12px; margin-top:15px; border-radius:5px; font-weight:bold; cursor:pointer;">
           Pedir todo por WhatsApp
         </button>
       </div>
@@ -147,6 +147,7 @@
     <!-- SCRIPTS -->
     <script src="carrito.js"></script>
     <script src="sidebar.js"></script>
+    <script src="buscador.js"></script> <!-- 🔍 Cargado de último -->
 
 </body>
 </html>

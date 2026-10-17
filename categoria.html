@@ -308,11 +308,12 @@ body.theme-blue {
     <!-- Enlace para regresar limpio y único -->
     <a href="index.html" class="btn-regresar">← Volver al Inicio</a>
 
-    <script src="carrito.js"></script>
+    <!-- Supabase CDN -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
       const SUPABASE_URL = "https://xvycvutivqtmuebupgpe.supabase.co";
-        const SUPABASE_ANON_KEY = "sb_publishable_as_GTYju2JC6y5x_GkwRFg_P3sOrKZ2";
+      const SUPABASE_ANON_KEY = "sb_publishable_as_GTYju2JC6y5x_GkwRFg_P3sOrKZ2"; // 🔑 Poner tu Key aquí
+      const db = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY); // Corregido SUPABASE_ANON_KEY
     </script>
 
     <!-- BOTÓN FLOTANTE DEL CARRITO -->

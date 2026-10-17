@@ -250,20 +250,26 @@ body.theme-blue {
     </a>
     <a href="motorola.html">
     <button>Motorola</button>
-      <a href="xiaomi.html">
+     </a>
+    <a href="xiaomi.html">
     <button>Xiaomi</button>
+    
+         <a href="variedad.html">
+    <button>Variedad</button>
+    
+
 </a>
 
     <!-- Un enlace para volver a la portada -->
     <a href="categoria.html" class="btn-regresar">← Volver al Inicio</a>
-    <script src="carrito.js"></script>
+  
+   <!-- Supabase CDN -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script>
-  // Inicializar Supabase si no lo tenés en un JS aparte
- const SUPABASE_URL = "https://xvycvutivqtmuebupgpe.supabase.co";
-        const SUPABASE_ANON_KEY = "sb_publishable_as_GTYju2JC6y5x_GkwRFg_P3sOrKZ2";
-  const db = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-</script>
+    <script>
+      const SUPABASE_URL = "https://xvycvutivqtmuebupgpe.supabase.co";
+      const SUPABASE_ANON_KEY = "sb_publishable_as_GTYju2JC6y5x_GkwRFg_P3sOrKZ2"; // 🔑 Poner tu Key aquí
+      const db = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY); // Corregido SUPABASE_ANON_KEY
+    </script>
 <!-- BOTÓN FLOTANTE DEL CARRITO -->
     <div id="boton-carrito-flotante" onclick="document.getElementById('modal-carrito').style.display='block'" style="position:fixed; bottom:20px; right:20px; background:#e63946; color:#fff; padding:12px 20px; border-radius:50px; cursor:pointer; z-index:1000; font-weight:bold; box-shadow:0 4px 10px rgba(0,0,0,0.3);">
       🛒 Carrito (<span id="cant-carrito">0</span>)
