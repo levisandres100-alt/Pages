@@ -188,31 +188,32 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 <hr class="sidebar-divider">
 
-                <!-- Carros -->
+                <!-- Smartphones -->
                 <div class="sidebar-section">
-                    <h4>🚗 Repuestos para Carro</h4>
+                    <h4>📲 Smartphones</h4>
                     <ul class="sidebar-menu">
-                        <li><a href="categorias.html">📋 Categorías Carro</a></li>
-                        <li><a href="aceitesylubricantes.html">🛢️ Aceites y Lubricantes</a></li>
-                        <li><a href="sistemasdefrenos.html">🛞 Sistemas de Frenos</a></li>
-                        <li><a href="motorydistribuicion.html">🏎️ Motor y Distribución</a></li>
-                        <li><a href="suspensionyshocks.html">🚗 Suspensión y Shocks</a></li>
-                        <li><a href="baterias.html">🔋 Baterías</a></li>
+                        <li><a href="cel.html">📋 Smartphones</a></li>
+                        <li><a href="samsung.html">Samsung</a></li>
+                        <li><a href="iphone.html">Iphone</a></li>
+                        <li><a href="honor.html">Honor</a></li>
+                        <li><a href="motorola.html">Motorola</a></li>
+                        <li><a href="xiaomi.html">Xiaomi</a></li>
+                        <li><a href="variedad.html">Variedad</a></li>
                     </ul>
                 </div>
 
                 <hr class="sidebar-divider">
 
-                <!-- Motos -->
+                <!-- Accesorios -->
                 <div class="sidebar-section">
-                    <h4>🏍️ Repuestos para Moto</h4>
+                    <h4>🎧 Accesorios</h4>
                     <ul class="sidebar-menu">
-                        <li><a href="categoriass.html">📋 Categorías Moto</a></li>
-                        <li><a href="aceitesylubricantesm.html">🛢️ Aceites y Lubricantes</a></li>
-                        <li><a href="sistemasdefrenosm.html">🛞 Sistemas de Frenos</a></li>
-                        <li><a href="motorydistribuicionm.html">🏎️ Motor y Distribución</a></li>
-                        <li><a href="suspensionyshocksm.html">🏍️ Suspensión y Shocks</a></li>
-                        <li><a href="bateriasm.html">🔋 Baterías</a></li>
+                        <li><a href="acc.html">📋 Categorías Accesorios</a></li>
+                        <li><a href="auriculares.html">🎧 Auriculares</a></li>
+                        <li><a href="bocinas.html">🔊 Bocinas</a></li>
+                        <li><a href="fundas.html">🛡️ Fundas</a></li>
+                        <li><a href="cargadores.html">🔌 Cargadores</a></li>
+                        <li><a href="smartwatch.html">⌚ Smartwatch</a></li>
                     </ul>
                 </div>
 
@@ -221,11 +222,11 @@ document.addEventListener("DOMContentLoaded", function () {
                 <!-- Atención y Ubicación -->
                 <div class="sidebar-section">
                     <h4>¿NECESITÁS AYUDA?</h4>
-                    <p class="theme-subtitle">¿No encuentras tu repuesto o quieres visitarnos?</p>
-                    <a href="tel:+50231841198" style="text-decoration: none;">
+                    <p class="theme-subtitle">¿No encuentras lo que buscas o quieres visitarnos?</p>
+                    <a href="tel:+50251636313" style="text-decoration: none;">
                         <button type="button" class="btn-sidebar-call">📞 Llamar a Asesor</button>
                     </a>
-                    <a href="https://maps.app.goo.gl/cy93vYPB3iuKFvLx8" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
+                    <a href="https://maps.app.goo.gl/SGjJyQ5HCbsW8P2C6" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
                         <button type="button" class="btn-sidebar-map">📍 Nos Ubicamos</button>
                     </a>
                 </div>
