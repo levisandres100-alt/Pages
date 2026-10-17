@@ -95,7 +95,7 @@ function enviarPedidoWhatsApp(numeroTel) {
 document.addEventListener('DOMContentLoaded', actualizarVistaCarrito);
 
 // ==========================================
-// BUSCADOR GLOBAL "TODO TERRENO" (Cierre automático)
+// BUSCADOR GLOBAL "TODO TERRENO" (Corregido)
 // ==========================================
 
 let cacheProductos = []; 
@@ -107,19 +107,24 @@ function normalizar(texto) {
     .replace(/[\u0300-\u036f]/g, "");
 }
 
+// Cargar catálogo completo desde Supabase
 async function cargarCacheProductos() {
   if (typeof db !== 'undefined') {
     try {
       const { data, error } = await db.from('productos').select('*');
-      if (data && !error) cacheProductos = data;
+      if (data && !error) {
+        cacheProductos = data;
+      }
     } catch (e) {
-      console.log("Error cargando caché:", e);
+      console.log("Error cargando caché de productos:", e);
     }
   }
 }
-cargarCacheProductos();
 
 document.addEventListener('DOMContentLoaded', () => {
+  // Intentar cargar la caché al iniciar el documento
+  cargarCacheProductos();
+
   // 1. BOTÓN FLOTANTE (LUPA)
   const btnBuscador = document.createElement('div');
   btnBuscador.id = 'btn-buscador-flotante';
@@ -137,12 +142,12 @@ document.addEventListener('DOMContentLoaded', () => {
   cajaBuscador.style.cssText = `
     display: none; position: fixed; bottom: 80px; left: 20px; background: white;
     padding: 12px; border-radius: 12px; box-shadow: 0 5px 20px rgba(0,0,0,0.25);
-    z-index: 1001; border: 2px solid #e63946; width: 280px; max-height: 350px; overflow-y: auto;
+    z-index: 1001; border: 2px solid #1158ff; width: 280px; max-height: 350px; overflow-y: auto;
   `;
 
   cajaBuscador.innerHTML = `
     <div style="position: relative; display: flex; align-items: center;">
-      <input type="text" id="input-buscador-flotante" placeholder="🔍 Buscar repuesto..." style="width:100%; border:1px solid #ccc; outline:none; padding:8px 30px 8px 12px; font-size:14px; border-radius:20px; box-sizing:border-box;">
+      <input type="text" id="input-buscador-flotante" placeholder="🔍 Buscar producto..." style="width:100%; border:1px solid #ccc; outline:none; padding:8px 30px 8px 12px; font-size:14px; border-radius:20px; box-sizing:border-box;">
       <span id="btn-limpiar-busqueda" style="display:none; position:absolute; right:10px; cursor:pointer; font-weight:bold; color:#888; font-size:16px;">&times;</span>
     </div>
     <div id="resultados-busqueda" style="margin-top:10px;"></div>
@@ -162,7 +167,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Abrir / Cerrar al dar clic a la Lupa
   btnBuscador.addEventListener('click', async (e) => {
-    e.stopPropagation(); // Evita que el clic se detecte como "clic afuera"
+    e.stopPropagation();
     const visible = cajaBuscador.style.display === 'block';
     
     if (visible) {
@@ -170,29 +175,28 @@ document.addEventListener('DOMContentLoaded', () => {
     } else {
       cajaBuscador.style.display = 'block';
       input.focus();
-      if (cacheProductos.length === 0) await cargarCacheProductos();
+      
+      // 🌟 REFUERZO CLAVE: Si por algún motivo la caché está vacía, la vuelve a traer al presionar la lupa
+      if (cacheProductos.length === 0) {
+        await cargarCacheProductos();
+      }
     }
   });
 
-  // Prevenir que clics DENTRO de la caja del buscador la cierren
   cajaBuscador.addEventListener('click', (e) => {
     e.stopPropagation();
   });
 
-  // REGLA 1: CERRAR AL HACER CLIC EN CUALQUIER PARTE AFUERA
-  // (Cubre clics a imágenes, categorías, menús o fondo de pantalla)
   document.addEventListener('click', () => {
     cerrarBuscador();
   });
 
-  // REGLA 2: CERRAR SI HACE SCROLL EN LA PÁGINA (Especial para móviles)
   window.addEventListener('scroll', () => {
     if (cajaBuscador.style.display === 'block') {
       cerrarBuscador();
     }
   }, { passive: true });
 
-  // Botón "X" de limpiar texto
   btnLimpiar.addEventListener('click', () => {
     input.value = '';
     resultadosDiv.innerHTML = '';
@@ -201,7 +205,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // Filtrado en tiempo real
-  input.addEventListener('input', () => {
+  input.addEventListener('input', async () => {
     const termino = normalizar(input.value.trim());
     btnLimpiar.style.display = termino.length > 0 ? 'block' : 'none';
 
@@ -210,12 +214,17 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
+    // 🌟 REFUERZO EXTRA: Si empieza a escribir y sigue vacía la lista, la recarga al instante
+    if (cacheProductos.length === 0) {
+      await cargarCacheProductos();
+    }
+
     const filtrados = cacheProductos.filter(p => 
       normalizar(p.nombre).includes(termino)
     ).slice(0, 5);
 
     if (filtrados.length === 0) {
-      resultadosDiv.innerHTML = '<p style="font-size:12px; color:#888; text-align:center;">No encontramos repuestos.</p>';
+      resultadosDiv.innerHTML = '<p style="font-size:12px; color:#888; text-align:center;">No encontramos productos.</p>';
       return;
     }
 
@@ -235,9 +244,11 @@ document.addEventListener('DOMContentLoaded', () => {
       `;
       
       item.onclick = () => {
-        agregarAlCarrito(prod.id, prod.nombre, prod.precio, img);
-        alert(`¡${prod.nombre} agregado!`);
-        cerrarBuscador(); // Cierra el buscador tras agregar un producto
+        if (typeof agregarAlCarrito === 'function') {
+          agregarAlCarrito(prod.id, prod.nombre, prod.precio, img);
+          alert(`¡${prod.nombre} agregado!`);
+        }
+        cerrarBuscador();
       };
       resultadosDiv.appendChild(item);
     });
