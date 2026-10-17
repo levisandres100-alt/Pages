@@ -78,7 +78,7 @@
         <div class="form-group">
           <label>Categoría Smartphone:</label>
           <select id="prodCategoria" required>
-            <optgroup label="Smartphones">
+            <optgroup label="Smartphones 📲">
               <option value="samsung">Samsung (Smartphones)</option>
               <option value="iphone">iPhone (Smartphones)</option>
               <option value="honor">Honor (Smartphones)</option>
@@ -86,12 +86,12 @@
               <option value="xiaomi">Xiaomi (Smartphones)</option>
                <option value="variedad">Variedad (Smartphones)</option>
             </optgroup>
-            <optgroup label="Accesorios">
-              <option value="aceitesylubricantesm">Aceites y Lubricantes (Motos)</option>
-              <option value="sistemadefrenosm">Sistema de Frenos (Motos)</option>
-              <option value="motorydistribuicionm">Motor y Distribución (Motos)</option>
-              <option value="suspensionyshocksm">Suspensión y Shocks (Motos)</option>
-              <option value="bateriasm">Baterías (Motos)</option>
+            <optgroup label="Accesorios 🎧">
+              <option value="auriculares">Auriculares (Accesorios)</option>
+              <option value="bocinas">Bocinas (Accesorios)</option>
+              <option value="fundas">Fundas (Accesorios)</option>
+              <option value="cargadores">Cargadores (Accesorios)</option>
+              <option value="smartwatch">Smartwatch (Accesorios)</option>
             </optgroup>
           </select>
         </div>
@@ -119,7 +119,7 @@
           <label for="filtroCategoria">Filtrar por categoría:</label>
           <select id="filtroCategoria" onchange="cargarProductos()">
             <option value="todas">Ver todas las categorías</option>
-            <optgroup label="martphones">
+            <optgroup label="Smartphones 📲">
               <option value="samsung">Samsung (Smartphones)</option>
               <option value="iphone">iPhone (Smartphones)</option>
               <option value="honor">Honor (Smartphones)</option>
@@ -127,20 +127,19 @@
               <option value="xiaomi">Xiaomi (Smartphones)</option>
                <option value="variedad">Variedad (Smartphones)</option>
             </optgroup>
-            <optgroup label="Accesorios">
-              <option value="aceitesylubricantesm">Aceites y Lubricantes (Motos)</option>
-              <option value="sistemadefrenosm">Sistema de Frenos (Motos)</option>
-              <option value="motorydistribuicionm">Motor y Distribución (Motos)</option>
-              <option value="suspensionyshocksm">Suspensión y Shocks (Motos)</option>
-              <option value="bateriasm">Baterías (Motos)</option>
+            <optgroup label="Accesorios 🎧">
+              <option value="auriculares">Auriculares (Accesorios)</option>
+              <option value="bocinas">Bocinas (Accesorios)</option>
+              <option value="fundas">Fundas (Accesorios)</option>
+              <option value="cargadores">Cargadores (Accesorios)</option>
+              <option value="smartwatch">Smartwatch (Accesorios)</option>
             </optgroup>
           </select>
         </div>
 
         <div id="listaProductos">Cargando productos...</div>
       </div>
-        <div id="listaProductos">Cargando productos...</div>
-      </div>
+        
     </div>
   </div>
 
@@ -224,14 +223,14 @@
 
         const imagenUrl = urlData.publicUrl;
 
-        // Determinar el icono según si la categoría es de Moto (termina en '') o Carro
-        const esMoto = categoria.endsWith('m');
-        const vehiculo = esMoto ? 'moto' : 'carro';
+        // Determinar el icono según si la categoría es de smartphone (termina en 's') o accesorio
+        const esSmartphone = categoria.endsWith('s');
+        const articulo = esSmartphone ? 'smartphone' : 'accesorio';
 
         // Insertar en la tabla 'productos'
         const { error: dbError } = await db
           .from('productos')
-          .insert([{ nombre, precio, stock, categoria, vehiculo, descripcion, imagen_url: imagenUrl }]);
+          .insert([{ nombre, precio, stock, categoria, articulo, descripcion, imagen_url: imagenUrl }]);
 
         if (dbError) throw dbError;
 
@@ -278,7 +277,7 @@
         const item = document.createElement('div');
         item.className = 'product-item';
         
-        const iconoVehiculo = (prod.categoria && prod.categoria.endsWith('m')) || prod.vehiculo === 'moto' ? '🎧' : '📲';
+        const iconoArticulo = (prod.categoria && prod.categoria.endsWith('a')) || prod.articulo === 'smartphone' ? '🎧' : '📲';
         const precioTxt = `Q${parseFloat(prod.precio).toFixed(2)}`;
         const estadoTxt = prod.stock > 0 
           ? `<span style="color:#2a9d8f; font-weight:bold;">${prod.stock} unids.</span>` 
@@ -289,7 +288,7 @@
         item.innerHTML = `
           <img src="${prod.imagen_url}" alt="${prod.nombre}">
           <div style="flex:1;">
-            <strong>${prod.nombre} ${iconoVehiculo}</strong><br>
+            <strong>${prod.nombre} ${iconoArticulo}</strong><br>
             <small>${precioTxt} | ${estadoTxt}</small>
             <!-- BOTONERA RÁPIDA DE STOCK -->
             <div style="margin-top: 5px;">
