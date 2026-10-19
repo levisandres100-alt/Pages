@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Panel de Administración - Auto-Motocentro</title>
+  <title>Panel de Administracion - Hipercel</title>
   <link rel="stylesheet" href="estilos.css">
   
   <!-- Supabase CDN -->
@@ -39,7 +39,7 @@
   <div class="container">
     <!-- PANTALLA DE LOGIN -->
     <div id="loginSection">
-      <h1>🏎️ Panel de Administración</h1>
+      <h1> Panel de Administración</h1>
       <form id="loginForm">
         <div class="form-group">
           <label>Correo Electrónico:</label>
@@ -144,8 +144,8 @@
   </div>
 
   <script>
-   const SUPABASE_URL = "https://xvycvutivqtmuebupgpe.supabase.co";
-        const SUPABASE_ANON_KEY = "sb_publishable_as_GTYju2JC6y5x_GkwRFg_P3sOrKZ2";
+    const SUPABASE_URL = "https://xvycvutivqtmuebupgpe.supabase.co";
+    const SUPABASE_ANON_KEY = "sb_publishable_as_GTYju2JC6y5x_GkwRFg_P3sOrKZ2"; // Poné tu key real
 
     const db = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
@@ -223,11 +223,9 @@
 
         const imagenUrl = urlData.publicUrl;
 
-        // Determinar el icono según si la categoría es de smartphone (termina en 's') o accesorio
         const esSmartphone = categoria.endsWith('s');
         const articulo = esSmartphone ? 'smartphone' : 'accesorio';
 
-        // Insertar en la tabla 'productos'
         const { error: dbError } = await db
           .from('productos')
           .insert([{ nombre, precio, stock, categoria, articulo, descripcion, imagen_url: imagenUrl }]);
@@ -246,20 +244,17 @@
       }
     });
 
-   // Mostrar lista en el Panel Admin (Con filtro aplicado)
+    // Mostrar lista en el Panel Admin (Con filtro aplicado)
     async function cargarProductos() {
       const filtro = document.getElementById('filtroCategoria')?.value || 'todas';
       listaProductos.innerHTML = "<p style='text-align:center;'>Cargando productos...</p>";
 
-      // Preparar consulta a Supabase
       let query = db.from('productos').select('*');
 
-      // Si el usuario eligió una categoría en específico, filtramos por esa columna
       if (filtro !== 'todas') {
         query = query.eq('categoria', filtro);
       }
 
-      // Ordenar los más recientes primero
       const { data, error } = await query.order('id', { ascending: false });
 
       if (error) {
@@ -283,13 +278,17 @@
           ? `<span style="color:#2a9d8f; font-weight:bold;">${prod.stock} unids.</span>` 
           : `<span style="color:#e63946; font-weight:bold;">Agotado</span>`;
 
-        const nombreEscapado = prod.nombre.replace(/'/g, "\\'");
+        // Limpiamos texto para evitar errores con comillas en JavaScript inline
+        const nombreLimpio = (prod.nombre || '').replace(/'/g, "\\'");
+        const descLimpia = (prod.descripcion || '').replace(/'/g, "\\'").replace(/\n/g, " ");
 
         item.innerHTML = `
           <img src="${prod.imagen_url}" alt="${prod.nombre}">
           <div style="flex:1;">
             <strong>${prod.nombre} ${iconoArticulo}</strong><br>
+            <small style="color:#555; display:block; margin:2px 0;">${prod.descripcion || 'Sin descripción'}</small>
             <small>${precioTxt} | ${estadoTxt}</small>
+            
             <!-- BOTONERA RÁPIDA DE STOCK -->
             <div style="margin-top: 5px;">
               <button onclick="cambiarStock(${prod.id}, ${prod.stock}, -1)" style="width:auto; padding: 2px 8px; font-size:12px; background:#457b9d; margin-top:0; color:white;">-1</button>
@@ -297,15 +296,17 @@
             </div>
           </div>
           
-          <!-- BOTÓN PARA CAMBIAR PRECIO -->
-          <button class="btn-edit" onclick="editarPrecio(${prod.id}, '${nombreEscapado}', ${prod.precio})">✏️ Precio</button>
-          
-          <!-- BOTÓN PARA BORRAR -->
-          <button class="btn-delete" onclick="eliminarProducto(${prod.id})">Borrar</button>
+          <!-- BOTONERA DE EDICIÓN Y ACCIONES -->
+          <div style="display: flex; flex-direction: column; gap: 5px;">
+            <button class="btn-edit" onclick="editarPrecio(${prod.id}, '${nombreLimpio}', ${prod.precio})">✏️ Precio</button>
+            <button class="btn-edit" style="background:#457b9d; color:white;" onclick="editarDetalles(${prod.id}, '${nombreLimpio}', '${descLimpia}')">📝 Nombre/Desc</button>
+            <button class="btn-delete" onclick="eliminarProducto(${prod.id})">Borrar</button>
+          </div>
         `;
         listaProductos.appendChild(item);
       });
     }
+
     // Cambiar stock
     async function cambiarStock(id, stockActual, cambio) {
       const nuevoStock = Math.max(0, stockActual + cambio);
@@ -325,30 +326,61 @@
       }
     }
 
-    // Editar precio
-    async function editarPrecio(idActual, nombreActual, precioActual) {
-      const nuevoPrecio = prompt(`Ingresá el nuevo precio para "${nombreActual}":`, precioActual);
+  // 💰 Editar precio verificando si realmente cambió en la base de datos
+async function editarPrecio(idActual, nombreActual, precioActual) {
+  const inputPrompt = prompt(`Ingresá el nuevo precio para "${nombreActual}":`, precioActual);
 
-      if (nuevoPrecio !== null && nuevoPrecio.trim() !== "") {
-        const precioParseado = parseFloat(nuevoPrecio);
+  if (inputPrompt !== null && inputPrompt.trim() !== "") {
+    const precioLimpio = inputPrompt.replace(/,/g, '').trim();
+    const precioParseado = parseFloat(precioLimpio);
 
-        if (isNaN(precioParseado) || precioParseado < 0) {
-          return alert("❌ Por favor ingresá un precio válido.");
-        }
+    if (isNaN(precioParseado) || precioParseado < 0) {
+      return alert("❌ Por favor ingresá un precio válido.");
+    }
 
-        const { error } = await db
-          .from('productos')
-          .update({ precio: precioParseado })
-          .eq('id', idActual);
+    // Le agregamos .select() al final para verificar que realmente actualizó el registro
+    const { data, error } = await db
+      .from('productos')
+      .update({ precio: precioParseado })
+      .eq('id', idActual)
+      .select();
 
-        if (error) {
-          alert("Error al actualizar el precio: " + error.message);
-        } else {
-          alert(`¡Éxito! El precio de "${nombreActual}" cambió a Q${precioParseado.toFixed(2)}.`);
-          cargarProductos();
-        }
+    if (error) {
+      alert("Error al actualizar el precio: " + error.message);
+    } else if (!data || data.length === 0) {
+      alert("⚠️ No se pudo actualizar el precio. Verifica los permisos RLS en Supabase para la acción UPDATE.");
+    } else {
+      alert(`¡Éxito! El precio de "${nombreActual}" cambió a Q${precioParseado.toFixed(2)}.`);
+      cargarProductos();
+    }
+  }
+}
+
+    // 📝 NUEVA FUNCIÓN: Editar Nombre y Descripción
+    async function editarDetalles(idActual, nombreActual, descActual) {
+      const nuevoNombre = prompt(`Modificá el nombre del producto:`, nombreActual);
+      if (nuevoNombre === null) return; // Si le da cancelar
+
+      const nuevaDesc = prompt(`Modificá la descripción o detalles:`, descActual);
+      if (nuevaDesc === null) return; // Si le da cancelar
+
+      if (nuevoNombre.trim() === "") {
+        return alert("❌ El nombre del producto no puede quedar vacío.");
+      }
+
+      const { error } = await db
+        .from('productos')
+        .update({ 
+          nombre: nuevoNombre.trim(), 
+          descripcion: nuevaDesc.trim() 
+        })
+        .eq('id', idActual);
+
+      if (error) {
+        alert("Error al actualizar los datos: " + error.message);
+      } else {
+        alert(`¡Información actualizada con éxito!`);
+        cargarProductos();
       }
     }
   </script>
-</body>
-</html>

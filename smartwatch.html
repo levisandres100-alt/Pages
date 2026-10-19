@@ -339,7 +339,7 @@ body.theme-blue {
           <strong>Total: <span id="total-carrito">Q0.00</span></strong>
         </div>
 
-        <button onclick="enviarPedidoWhatsApp('50231841198')" style="width:100%; background:#25D366; color:#fff; border:none; padding:12px; margin-top:15px; border-radius:5px; font-weight:bold; cursor:pointer;">
+        <button onclick="enviarPedidoWhatsApp('50251636313')" style="width:100%; background:#25D366; color:#fff; border:none; padding:12px; margin-top:15px; border-radius:5px; font-weight:bold; cursor:pointer;">
           Pedir todo por WhatsApp
         </button>
       </div>
@@ -351,13 +351,13 @@ body.theme-blue {
 
         const db = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-        async function cargarbateriasm() {
+        async function cargarsmartwatch() {
             const contenedor = document.getElementById('contenedorProductos');
 
             const { data: productos, error } = await db
                 .from('productos')
                 .select('*')
-                .eq('categoria', 'bateriasm')
+                .eq('categoria', 'smartwatch')
                 .order('id', { ascending: false });
 
             if (error) {
@@ -367,7 +367,7 @@ body.theme-blue {
             }
 
             if (productos.length === 0) {
-                contenedor.innerHTML = "<p>No hay baterias registradas en este momento.</p>";
+                contenedor.innerHTML = "<p>No hay smartwatch registrados en este momento.</p>";
                 return;
             }
 
