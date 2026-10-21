@@ -78,13 +78,29 @@ h1 {
 
 
 /* ==========================================
-   FORZAR SALTOS DE LÍNEA EN TODAS LAS TARJETAS
+   SOLUCIÓN GLOBAL: TARJETAS OSCURAS Y SALTOS DE LÍNEA EN TODA LA TIENDA
    ========================================== */
-.card small, 
-.product-item small, 
-.producto small, 
-div small {
-  white-space: pre-line !important;
-  display: block !important;
-  margin-top: 4px;
+
+/* 1. Forzar el modo oscuro en las tarjetas cuando el body tenga la clase de tema */
+body.theme-dark .card-producto,
+body.theme-dark [class*="card"] {
+    background-color: #1e1e1e !important;
+    color: #ffffff !important;
+    border: 1px solid #333 !important;
+}
+
+/* 2. Asegurar que los textos descriptivos dentro de las tarjetas bajen de línea y se lean bien */
+body.theme-dark .card-producto p,
+body.theme-dark .card-producto small,
+body.theme-dark [class*="card"] p,
+.card-producto p.descripcion-texto {
+    white-space: pre-line !important;
+    color: #d1d5db !important;
+    text-align: left;
+}
+
+/* 3. Para cuando esté en modo normal / claro pero igual querás que respete los saltos */
+.card-producto p.descripcion-texto,
+[class*="card"] p {
+    white-space: pre-line !important;
 }
