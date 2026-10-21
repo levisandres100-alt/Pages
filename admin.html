@@ -1,50 +1,50 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
     <link rel="manifest" href="/site.webmanifest">
     
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Panel de Administracion - Hipercel</title>
-  <link rel="stylesheet" href="estilos.css">
-  
-  <!-- Supabase CDN -->
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  
-  <style>
-    :root {
-      --primary: #1158ff;
-      --dark: #1d3557;
-      --light: #f1faee;
-      --gray: #457b9d;
-    }
-    * { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; }
-    body { background-color: #f4f6f8; color: #333; padding: 20px; }
-    .container { max-width: 600px; margin: 0 auto; background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
-    h1, h2 { text-align: center; color: var(--dark); margin-bottom: 20px; }
-    .form-group { margin-bottom: 15px; }
-    label { display: block; font-weight: bold; margin-bottom: 5px; color: var(--dark); }
-    input, select, textarea { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 6px; font-size: 16px; }
-    button { width: 100%; padding: 12px; background: var(--primary); color: #000; border: none; border-radius: 6px; font-size: 18px; font-weight: bold; cursor: pointer; transition: 0.3s; margin-top: 10px; }
-    button:hover { opacity: 0.85; }
-    .btn-logout { background: #6c757d; color: white; margin-bottom: 20px; }
-    .hidden { display: none; }
-    .product-list { margin-top: 30px; }
-    .product-item { display: flex; align-items: center; justify-content: space-between; background: #fff; padding: 10px; margin-bottom: 10px; border-radius: 8px; border: 1px solid #ddd; gap: 10px; }
-    .product-item img { width: 50px; height: 50px; object-fit: cover; border-radius: 6px; }
-    .btn-delete { background: #e63946; color: white; width: auto; padding: 6px 12px; font-size: 14px; margin-top: 0; }
-    .btn-edit { background: #ffb703; color: #000; width: auto; padding: 6px 10px; font-size: 12px; margin-top: 0; font-weight: bold; }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Administracion - Hipercel</title>
+    <link rel="stylesheet" href="estilos.css">
+    
+    <!-- Supabase CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    
+    <style>
+        :root {
+          --primary: #1158ff;
+          --dark: #1d3557;
+          --light: #f1faee;
+          --gray: #457b9d;
+        }
+        * { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; }
+        body { background-color: #f4f6f8; color: #333; padding: 20px; }
+        .container { max-width: 600px; margin: 0 auto; background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        h1, h2 { text-align: center; color: var(--dark); margin-bottom: 20px; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; font-weight: bold; margin-bottom: 5px; color: var(--dark); }
+        input, select, textarea { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 6px; font-size: 16px; }
+        button { width: 100%; padding: 12px; background: var(--primary); color: #fff; border: none; border-radius: 6px; font-size: 18px; font-weight: bold; cursor: pointer; transition: 0.3s; margin-top: 10px; }
+        button:hover { opacity: 0.85; }
+        .btn-logout { background: #6c757d; color: white; margin-bottom: 20px; }
+        .hidden { display: none; }
+        .product-list { margin-top: 30px; }
+        .product-item { display: flex; align-items: center; justify-content: space-between; background: #fff; padding: 10px; margin-bottom: 10px; border-radius: 8px; border: 1px solid #ddd; gap: 10px; }
+        .product-item img { width: 50px; height: 50px; object-fit: cover; border-radius: 6px; }
+        .btn-delete { background: #e63946; color: white; width: auto; padding: 6px 12px; font-size: 14px; margin-top: 0; }
+        .btn-edit { background: #ffb703; color: #000; width: auto; padding: 6px 10px; font-size: 12px; margin-top: 0; font-weight: bold; }
+    </style>
 </head>
 <body>
 
   <div class="container">
     <!-- PANTALLA DE LOGIN -->
     <div id="loginSection">
-      <h1> Panel de Administración</h1>
+      <h1>Panel de Administración</h1>
       <form id="loginForm">
         <div class="form-group">
           <label>Correo Electrónico:</label>
@@ -89,7 +89,7 @@
               <option value="honor">Honor (Smartphones)</option>
               <option value="motorola">Motorola (Smartphones)</option>
               <option value="xiaomi">Xiaomi (Smartphones)</option>
-               <option value="variedad">Variedad (Smartphones)</option>
+              <option value="variedad">Variedad (Smartphones)</option>
             </optgroup>
             <optgroup label="Accesorios 🎧">
               <option value="auriculares">Auriculares (Accesorios)</option>
@@ -115,7 +115,6 @@
       </form>
 
       <!-- LISTA DE PRODUCTOS SUBIDOS -->
-    
       <div class="product-list">
         <h2>📋 Productos en la Web</h2>
 
@@ -130,7 +129,7 @@
               <option value="honor">Honor (Smartphones)</option>
               <option value="motorola">Motorola (Smartphones)</option>
               <option value="xiaomi">Xiaomi (Smartphones)</option>
-               <option value="variedad">Variedad (Smartphones)</option>
+              <option value="variedad">Variedad (Smartphones)</option>
             </optgroup>
             <optgroup label="Accesorios 🎧">
               <option value="auriculares">Auriculares (Accesorios)</option>
@@ -150,7 +149,7 @@
 
   <script>
     const SUPABASE_URL = "https://xvycvutivqtmuebupgpe.supabase.co";
-    const SUPABASE_ANON_KEY = "sb_publishable_as_GTYju2JC6y5x_GkwRFg_P3sOrKZ2"; // Poné tu key real
+    const SUPABASE_ANON_KEY = "sb_publishable_as_GTYju2JC6y5x_GkwRFg_P3sOrKZ2";
 
     const db = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
@@ -161,7 +160,6 @@
     const btnLogout = document.getElementById('btnLogout');
     const listaProductos = document.getElementById('listaProductos');
 
-    // Verificar sesión
     async function checkUser() {
       const { data: { session } } = await db.auth.getSession();
       if (session) {
@@ -175,7 +173,6 @@
     }
     checkUser();
 
-    // Login
     loginForm.addEventListener('submit', async (e) => {
       e.preventDefault();
       const email = document.getElementById('loginEmail').value;
@@ -190,13 +187,11 @@
       }
     });
 
-    // Logout
     btnLogout.addEventListener('click', async () => {
       await db.auth.signOut();
       checkUser();
     });
 
-    // Guardar Producto en BD
     productForm.addEventListener('submit', async (e) => {
       e.preventDefault();
       const btn = document.getElementById('btnGuardar');
@@ -249,7 +244,6 @@
       }
     });
 
-    // Mostrar lista en el Panel Admin (Con filtro aplicado)
     async function cargarProductos() {
       const filtro = document.getElementById('filtroCategoria')?.value || 'todas';
       listaProductos.innerHTML = "<p style='text-align:center;'>Cargando productos...</p>";
@@ -278,12 +272,11 @@
         item.className = 'product-item';
         
         const iconoArticulo = (prod.categoria && prod.categoria.endsWith('a')) || prod.articulo === 'smartphone' ? '🎧' : '📲';
-        const precioTxt = `Q${parseFloat(prod.precio).toFixed(2)}`;
+        const precioTxt = `Q${parseFloat(prod.precio || 0).toFixed(2)}`;
         const estadoTxt = prod.stock > 0 
           ? `<span style="color:#2a9d8f; font-weight:bold;">${prod.stock} unids.</span>` 
           : `<span style="color:#e63946; font-weight:bold;">Agotado</span>`;
 
-        // Limpiamos texto para evitar errores con comillas en JavaScript inline
         const nombreLimpio = (prod.nombre || '').replace(/'/g, "\\'");
         const descLimpia = (prod.descripcion || '').replace(/'/g, "\\'").replace(/\n/g, " ");
 
@@ -294,16 +287,14 @@
             <small style="color:#555; display:block; margin:2px 0;">${prod.descripcion || 'Sin descripción'}</small>
             <small>${precioTxt} | ${estadoTxt}</small>
             
-            <!-- BOTONERA RÁPIDA DE STOCK -->
             <div style="margin-top: 5px;">
-              <button onclick="cambiarStock(${prod.id}, ${prod.stock}, -1)" style="width:auto; padding: 2px 8px; font-size:12px; background:#457b9d; margin-top:0; color:white;">-1</button>
-              <button onclick="cambiarStock(${prod.id}, ${prod.stock}, 1)" style="width:auto; padding: 2px 8px; font-size:12px; background:#2a9d8f; margin-top:0; color:white;">+1</button>
+              <button onclick="cambiarStock(${prod.id}, ${prod.stock || 0}, -1)" style="width:auto; padding: 2px 8px; font-size:12px; background:#457b9d; margin-top:0; color:white;">-1</button>
+              <button onclick="cambiarStock(${prod.id}, ${prod.stock || 0}, 1)" style="width:auto; padding: 2px 8px; font-size:12px; background:#2a9d8f; margin-top:0; color:white;">+1</button>
             </div>
           </div>
           
-          <!-- BOTONERA DE EDICIÓN Y ACCIONES -->
           <div style="display: flex; flex-direction: column; gap: 5px;">
-            <button class="btn-edit" onclick="editarPrecio(${prod.id}, '${nombreLimpio}', ${prod.precio})">✏️ Precio</button>
+            <button class="btn-edit" onclick="editarPrecio(${prod.id}, '${nombreLimpio}', ${prod.precio || 0})">✏️ Precio</button>
             <button class="btn-edit" style="background:#457b9d; color:white;" onclick="editarDetalles(${prod.id}, '${nombreLimpio}', '${descLimpia}')">📝 Nombre/Desc</button>
             <button class="btn-delete" onclick="eliminarProducto(${prod.id})">Borrar</button>
           </div>
@@ -312,14 +303,12 @@
       });
     }
 
-    // Cambiar stock
     async function cambiarStock(id, stockActual, cambio) {
       const nuevoStock = Math.max(0, stockActual + cambio);
       const { error } = await db.from('productos').update({ stock: nuevoStock }).eq('id', id);
       if (!error) cargarProductos();
     }
 
-    // Borrar producto
     async function eliminarProducto(id) {
       if (confirm("¿Estás seguro de eliminar este producto?")) {
         const { error } = await db.from('productos').delete().eq('id', id);
@@ -331,43 +320,40 @@
       }
     }
 
-  // 💰 Editar precio verificando si realmente cambió en la base de datos
-async function editarPrecio(idActual, nombreActual, precioActual) {
-  const inputPrompt = prompt(`Ingresá el nuevo precio para "${nombreActual}":`, precioActual);
+    async function editarPrecio(idActual, nombreActual, precioActual) {
+      const inputPrompt = prompt(`Ingresá el nuevo precio para "${nombreActual}":`, precioActual);
 
-  if (inputPrompt !== null && inputPrompt.trim() !== "") {
-    const precioLimpio = inputPrompt.replace(/,/g, '').trim();
-    const precioParseado = parseFloat(precioLimpio);
+      if (inputPrompt !== null && inputPrompt.trim() !== "") {
+        const precioLimpio = inputPrompt.replace(/,/g, '').trim();
+        const precioParseado = parseFloat(precioLimpio);
 
-    if (isNaN(precioParseado) || precioParseado < 0) {
-      return alert("❌ Por favor ingresá un precio válido.");
+        if (isNaN(precioParseado) || precioParseado < 0) {
+          return alert("❌ Por favor ingresá un precio válido.");
+        }
+
+        const { data, error } = await db
+          .from('productos')
+          .update({ precio: precioParseado })
+          .eq('id', idActual)
+          .select();
+
+        if (error) {
+          alert("Error al actualizar el precio: " + error.message);
+        } else if (!data || data.length === 0) {
+          alert("⚠️ No se pudo actualizar el precio.");
+        } else {
+          alert(`¡Éxito! El precio de "${nombreActual}" cambió a Q${precioParseado.toFixed(2)}.`);
+          cargarProductos();
+        }
+      }
     }
 
-    // Le agregamos .select() al final para verificar que realmente actualizó el registro
-    const { data, error } = await db
-      .from('productos')
-      .update({ precio: precioParseado })
-      .eq('id', idActual)
-      .select();
-
-    if (error) {
-      alert("Error al actualizar el precio: " + error.message);
-    } else if (!data || data.length === 0) {
-      alert("⚠️ No se pudo actualizar el precio. Verifica los permisos RLS en Supabase para la acción UPDATE.");
-    } else {
-      alert(`¡Éxito! El precio de "${nombreActual}" cambió a Q${precioParseado.toFixed(2)}.`);
-      cargarProductos();
-    }
-  }
-}
-
-    // 📝 NUEVA FUNCIÓN: Editar Nombre y Descripción
     async function editarDetalles(idActual, nombreActual, descActual) {
       const nuevoNombre = prompt(`Modificá el nombre del producto:`, nombreActual);
-      if (nuevoNombre === null) return; // Si le da cancelar
+      if (nuevoNombre === null) return;
 
       const nuevaDesc = prompt(`Modificá la descripción o detalles:`, descActual);
-      if (nuevaDesc === null) return; // Si le da cancelar
+      if (nuevaDesc === null) return;
 
       if (nuevoNombre.trim() === "") {
         return alert("❌ El nombre del producto no puede quedar vacío.");
@@ -389,3 +375,5 @@ async function editarPrecio(idActual, nombreActual, precioActual) {
       }
     }
   </script>
+</body>
+</html>
