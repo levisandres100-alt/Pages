@@ -1,377 +1,107 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-    <link rel="manifest" href="/site.webmanifest">
-    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Panel de Administracion - Hipercel</title>
+    <title>Panel Admin - Hipercel</title>
     <link rel="stylesheet" href="estilos.css">
-    
-    <!-- Supabase CDN -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    
     <style>
-        :root {
-          --primary: #1158ff;
-          --dark: #1d3557;
-          --light: #f1faee;
-          --gray: #457b9d;
-        }
-        * { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; }
-        body { background-color: #f4f6f8; color: #333; padding: 20px; }
-        .container { max-width: 600px; margin: 0 auto; background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
-        h1, h2 { text-align: center; color: var(--dark); margin-bottom: 20px; }
-        .form-group { margin-bottom: 15px; }
-        label { display: block; font-weight: bold; margin-bottom: 5px; color: var(--dark); }
-        input, select, textarea { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 6px; font-size: 16px; }
-        button { width: 100%; padding: 12px; background: var(--primary); color: #fff; border: none; border-radius: 6px; font-size: 18px; font-weight: bold; cursor: pointer; transition: 0.3s; margin-top: 10px; }
-        button:hover { opacity: 0.85; }
-        .btn-logout { background: #6c757d; color: white; margin-bottom: 20px; }
+        body { font-family: sans-serif; background: #f4f6f8; padding: 20px; color: #333; }
+        .container { max-width: 600px; margin: 0 auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
         .hidden { display: none; }
-        .product-list { margin-top: 30px; }
-        .product-item { display: flex; align-items: center; justify-content: space-between; background: #fff; padding: 10px; margin-bottom: 10px; border-radius: 8px; border: 1px solid #ddd; gap: 10px; }
-        .product-item img { width: 50px; height: 50px; object-fit: cover; border-radius: 6px; }
-        .btn-delete { background: #e63946; color: white; width: auto; padding: 6px 12px; font-size: 14px; margin-top: 0; }
-        .btn-edit { background: #ffb703; color: #000; width: auto; padding: 6px 10px; font-size: 12px; margin-top: 0; font-weight: bold; }
+        .product-item { display: flex; align-items: center; justify-content: space-between; background: #fff; padding: 10px; margin-bottom: 10px; border: 1px solid #ddd; border-radius: 6px; }
+        button { padding: 8px 12px; cursor: pointer; font-weight: bold; border-radius: 4px; border: none; }
     </style>
 </head>
 <body>
 
   <div class="container">
-    <!-- PANTALLA DE LOGIN -->
+    <!-- LOGIN -->
     <div id="loginSection">
-      <h1>Panel de Administración</h1>
+      <h2>Iniciar Sesión</h2>
       <form id="loginForm">
-        <div class="form-group">
-          <label>Correo Electrónico:</label>
-          <input type="email" id="loginEmail" required placeholder="tu-correo@gmail.com">
-        </div>
-        <div class="form-group">
-          <label>Contraseña:</label>
-          <input type="password" id="loginPassword" required placeholder="••••••••">
-        </div>
-        <button type="submit">Iniciar Sesión</button>
+        <input type="email" id="loginEmail" placeholder="Correo" required style="width:100%; padding:10px; margin-bottom:10px;"><br>
+        <input type="password" id="loginPassword" placeholder="Contraseña" required style="width:100%; padding:10px; margin-bottom:10px;"><br>
+        <button type="submit" style="background:#1158ff; color:white; width:100%;">Entrar</button>
       </form>
     </div>
 
-    <!-- PANTALLA DEL PANEL DE CONTROL -->
+    <!-- PANEL -->
     <div id="adminSection" class="hidden">
-      <button class="btn-logout" id="btnLogout">Cerrar Sesión</button>
-      <h2>📦 Agregar Nuevo Producto</h2>
-      
-      <form id="productForm">
-        <div class="form-group">
-          <label>Nombre del Producto:</label>
-          <input type="text" id="prodNombre" placeholder="Ej. Galaxy S21" required>
-        </div>
-
-        <div style="display: flex; gap: 10px;">
-          <div class="form-group" style="flex: 1;">
-            <label>Precio (Q):</label>
-            <input type="number" id="prodPrecio" step="0.01" placeholder="Ej. 150.00" required>
-          </div>
-          <div class="form-group" style="flex: 1;">
-            <label>Stock inicial (Unidades):</label>
-            <input type="number" id="prodStock" min="0" placeholder="Ej. 10" required>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label>Categoría Smartphone:</label>
-          <select id="prodCategoria" required>
-            <optgroup label="Smartphones 📲">
-              <option value="samsung">Samsung (Smartphones)</option>
-              <option value="iphone">iPhone (Smartphones)</option>
-              <option value="honor">Honor (Smartphones)</option>
-              <option value="motorola">Motorola (Smartphones)</option>
-              <option value="xiaomi">Xiaomi (Smartphones)</option>
-              <option value="variedad">Variedad (Smartphones)</option>
-            </optgroup>
-            <optgroup label="Accesorios 🎧">
-              <option value="auriculares">Auriculares (Accesorios)</option>
-              <option value="bocinas">Bocinas (Accesorios)</option>
-              <option value="fundas">Fundas (Accesorios)</option>
-              <option value="cargadores">Cargadores (Accesorios)</option>
-              <option value="smartwatch">Smartwatch (Accesorios)</option>
-            </optgroup>
-          </select>
-        </div>
-
-        <div class="form-group">
-          <label>Descripción / Detalle:</label>
-          <textarea id="prodDescripcion" rows="2" placeholder="Ej. Espacio, RAM, etc."></textarea>
-        </div>
-
-        <div class="form-group">
-          <label>Foto del Producto:</label>
-          <input type="file" id="prodImagen" accept="image/*" required>
-        </div>
-
-        <button type="submit" id="btnGuardar">Subir Producto</button>
-      </form>
-
-      <!-- LISTA DE PRODUCTOS SUBIDOS -->
-      <div class="product-list">
-        <h2>📋 Productos en la Web</h2>
-
-        <!-- FILTRADOR DE CATEGORÍAS -->
-        <div class="form-group" style="margin-bottom: 20px;">
-          <label for="filtroCategoria">Filtrar por categoría:</label>
-          <select id="filtroCategoria" onchange="cargarProductos()">
-            <option value="todas">Ver todas las categorías</option>
-            <optgroup label="Smartphones 📲">
-              <option value="samsung">Samsung (Smartphones)</option>
-              <option value="iphone">iPhone (Smartphones)</option>
-              <option value="honor">Honor (Smartphones)</option>
-              <option value="motorola">Motorola (Smartphones)</option>
-              <option value="xiaomi">Xiaomi (Smartphones)</option>
-              <option value="variedad">Variedad (Smartphones)</option>
-            </optgroup>
-            <optgroup label="Accesorios 🎧">
-              <option value="auriculares">Auriculares (Accesorios)</option>
-              <option value="bocinas">Bocinas (Accesorios)</option>
-              <option value="fundas">Fundas (Accesorios)</option>
-              <option value="cargadores">Cargadores (Accesorios)</option>
-              <option value="smartwatch">Smartwatch (Accesorios)</option>
-            </optgroup>
-          </select>
-        </div>
-
-        <div id="listaProductos">Cargando productos...</div>
-      </div>
-        
+      <button id="btnLogout" style="background:#6c757d; color:white; margin-bottom:15px;">Cerrar Sesión</button>
+      <h2>Lista de Productos</h2>
+      <div id="listaProductos">Cargando...</div>
     </div>
   </div>
 
   <script>
     const SUPABASE_URL = "https://xvycvutivqtmuebupgpe.supabase.co";
     const SUPABASE_ANON_KEY = "sb_publishable_as_GTYju2JC6y5x_GkwRFg_P3sOrKZ2";
-
     const db = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-
-    const loginSection = document.getElementById('loginSection');
-    const adminSection = document.getElementById('adminSection');
-    const loginForm = document.getElementById('loginForm');
-    const productForm = document.getElementById('productForm');
-    const btnLogout = document.getElementById('btnLogout');
-    const listaProductos = document.getElementById('listaProductos');
 
     async function checkUser() {
       const { data: { session } } = await db.auth.getSession();
       if (session) {
-        loginSection.classList.add('hidden');
-        adminSection.classList.remove('hidden');
+        document.getElementById('loginSection').classList.add('hidden');
+        document.getElementById('adminSection').classList.remove('hidden');
         cargarProductos();
       } else {
-        loginSection.classList.remove('hidden');
-        adminSection.classList.add('hidden');
+        document.getElementById('loginSection').classList.remove('hidden');
+        document.getElementById('adminSection').classList.add('hidden');
       }
     }
     checkUser();
 
-    loginForm.addEventListener('submit', async (e) => {
+    document.getElementById('loginForm').addEventListener('submit', async (e) => {
       e.preventDefault();
       const email = document.getElementById('loginEmail').value;
       const password = document.getElementById('loginPassword').value;
-
-      const { data, error } = await db.auth.signInWithPassword({ email, password });
-
-      if (error) {
-        alert("Error al iniciar sesión: " + error.message);
-      } else {
-        checkUser();
-      }
+      const { error } = await db.auth.signInWithPassword({ email, password });
+      if (error) alert("Error: " + error.message);
+      else checkUser();
     });
 
-    btnLogout.addEventListener('click', async () => {
+    document.getElementById('btnLogout').addEventListener('click', async () => {
       await db.auth.signOut();
       checkUser();
     });
 
-    productForm.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const btn = document.getElementById('btnGuardar');
-      btn.innerText = "Subiendo...";
-      btn.disabled = true;
-
-      const nombre = document.getElementById('prodNombre').value;
-      const precio = parseFloat(document.getElementById('prodPrecio').value);
-      const stock = parseInt(document.getElementById('prodStock').value);
-      const categoria = document.getElementById('prodCategoria').value;
-      const descripcion = document.getElementById('prodDescripcion').value;
-      const fileInput = document.getElementById('prodImagen');
-      const file = fileInput.files[0];
-
-      try {
-        const fileExt = file.name.split('.').pop();
-        const fileName = `${Date.now()}.${fileExt}`;
-        const filePath = `${fileName}`;
-
-        const { error: uploadError } = await db.storage
-          .from('imagenes')
-          .upload(filePath, file);
-
-        if (uploadError) throw uploadError;
-
-        const { data: urlData } = db.storage
-          .from('imagenes')
-          .getPublicUrl(filePath);
-
-        const imagenUrl = urlData.publicUrl;
-
-        const esSmartphone = categoria.endsWith('s');
-        const articulo = esSmartphone ? 'smartphone' : 'accesorio';
-
-        const { error: dbError } = await db
-          .from('productos')
-          .insert([{ nombre, precio, stock, categoria, articulo, descripcion, imagen_url: imagenUrl }]);
-
-        if (dbError) throw dbError;
-
-        alert("¡Producto guardado exitosamente!");
-        productForm.reset();
-        cargarProductos();
-
-      } catch (err) {
-        alert("Error: " + err.message);
-      } finally {
-        btn.innerText = "Subir Producto";
-        btn.disabled = false;
-      }
-    });
-
     async function cargarProductos() {
-      const filtro = document.getElementById('filtroCategoria')?.value || 'todas';
-      listaProductos.innerHTML = "<p style='text-align:center;'>Cargando productos...</p>";
-
-      let query = db.from('productos').select('*');
-
-      if (filtro !== 'todas') {
-        query = query.eq('categoria', filtro);
-      }
-
-      const { data, error } = await query.order('id', { ascending: false });
+      const lista = document.getElementById('listaProductos');
+      lista.innerHTML = "Cargando productos...";
+      const { data, error } = await db.from('productos').select('*').order('id', { ascending: false });
 
       if (error) {
-        listaProductos.innerHTML = "Error al cargar productos.";
+        lista.innerHTML = "Error al cargar.";
         return;
       }
 
-      if (!data || data.length === 0) {
-        listaProductos.innerHTML = "<p style='text-align:center; color:#666;'>No hay productos en esta categoría.</p>";
-        return;
-      }
-
-      listaProductos.innerHTML = "";
+      lista.innerHTML = "";
       data.forEach(prod => {
         const item = document.createElement('div');
         item.className = 'product-item';
-        
-        const iconoArticulo = (prod.categoria && prod.categoria.endsWith('a')) || prod.articulo === 'smartphone' ? '🎧' : '📲';
-        const precioTxt = `Q${parseFloat(prod.precio || 0).toFixed(2)}`;
-        const estadoTxt = prod.stock > 0 
-          ? `<span style="color:#2a9d8f; font-weight:bold;">${prod.stock} unids.</span>` 
-          : `<span style="color:#e63946; font-weight:bold;">Agotado</span>`;
-
-        const nombreLimpio = (prod.nombre || '').replace(/'/g, "\\'");
-        const descLimpia = (prod.descripcion || '').replace(/'/g, "\\'").replace(/\n/g, " ");
-
         item.innerHTML = `
-          <img src="${prod.imagen_url}" alt="${prod.nombre}">
-          <div style="flex:1;">
-            <strong>${prod.nombre} ${iconoArticulo}</strong><br>
-            <small style="color:#555; display:block; margin:2px 0;">${prod.descripcion || 'Sin descripción'}</small>
-            <small>${precioTxt} | ${estadoTxt}</small>
-            
-            <div style="margin-top: 5px;">
-              <button onclick="cambiarStock(${prod.id}, ${prod.stock || 0}, -1)" style="width:auto; padding: 2px 8px; font-size:12px; background:#457b9d; margin-top:0; color:white;">-1</button>
-              <button onclick="cambiarStock(${prod.id}, ${prod.stock || 0}, 1)" style="width:auto; padding: 2px 8px; font-size:12px; background:#2a9d8f; margin-top:0; color:white;">+1</button>
-            </div>
-          </div>
-          
-          <div style="display: flex; flex-direction: column; gap: 5px;">
-            <button class="btn-edit" onclick="editarPrecio(${prod.id}, '${nombreLimpio}', ${prod.precio || 0})">✏️ Precio</button>
-            <button class="btn-edit" style="background:#457b9d; color:white;" onclick="editarDetalles(${prod.id}, '${nombreLimpio}', '${descLimpia}')">📝 Nombre/Desc</button>
-            <button class="btn-delete" onclick="eliminarProducto(${prod.id})">Borrar</button>
-          </div>
+          <span><strong>${prod.nombre}</strong> - Q${prod.precio}</span>
+          <button onclick="editarPrecio(${prod.id}, '${(prod.nombre || '').replace(/'/g, "\\'")}', ${prod.precio})" style="background:#ffb703;">✏️ Precio</button>
         `;
-        listaProductos.appendChild(item);
+        lista.appendChild(item);
       });
     }
 
-    async function cambiarStock(id, stockActual, cambio) {
-      const nuevoStock = Math.max(0, stockActual + cambio);
-      const { error } = await db.from('productos').update({ stock: nuevoStock }).eq('id', id);
-      if (!error) cargarProductos();
-    }
+    async function editarPrecio(id, nombre, precioActual) {
+      const nuevo = prompt(`Nuevo precio para ${nombre}:`, precioActual);
+      if (nuevo !== null && nuevo.trim() !== "") {
+        const precioParsed = parseFloat(nuevo);
+        if (isNaN(precioParsed)) return alert("Precio inválido");
 
-    async function eliminarProducto(id) {
-      if (confirm("¿Estás seguro de eliminar este producto?")) {
-        const { error } = await db.from('productos').delete().eq('id', id);
-        if (error) {
-          alert("Error: " + error.message);
-        } else {
+        const { data, error } = await db.from('productos').update({ precio: precioParsed }).eq('id', id).select();
+        if (error) alert("Error: " + error.message);
+        else if (!data || data.length === 0) alert("No se actualizó");
+        else {
+          alert("¡Precio actualizado con éxito!");
           cargarProductos();
         }
-      }
-    }
-
-    async function editarPrecio(idActual, nombreActual, precioActual) {
-      const inputPrompt = prompt(`Ingresá el nuevo precio para "${nombreActual}":`, precioActual);
-
-      if (inputPrompt !== null && inputPrompt.trim() !== "") {
-        const precioLimpio = inputPrompt.replace(/,/g, '').trim();
-        const precioParseado = parseFloat(precioLimpio);
-
-        if (isNaN(precioParseado) || precioParseado < 0) {
-          return alert("❌ Por favor ingresá un precio válido.");
-        }
-
-        const { data, error } = await db
-          .from('productos')
-          .update({ precio: precioParseado })
-          .eq('id', idActual)
-          .select();
-
-        if (error) {
-          alert("Error al actualizar el precio: " + error.message);
-        } else if (!data || data.length === 0) {
-          alert("⚠️ No se pudo actualizar el precio.");
-        } else {
-          alert(`¡Éxito! El precio de "${nombreActual}" cambió a Q${precioParseado.toFixed(2)}.`);
-          cargarProductos();
-        }
-      }
-    }
-
-    async function editarDetalles(idActual, nombreActual, descActual) {
-      const nuevoNombre = prompt(`Modificá el nombre del producto:`, nombreActual);
-      if (nuevoNombre === null) return;
-
-      const nuevaDesc = prompt(`Modificá la descripción o detalles:`, descActual);
-      if (nuevaDesc === null) return;
-
-      if (nuevoNombre.trim() === "") {
-        return alert("❌ El nombre del producto no puede quedar vacío.");
-      }
-
-      const { error } = await db
-        .from('productos')
-        .update({ 
-          nombre: nuevoNombre.trim(), 
-          descripcion: nuevaDesc.trim() 
-        })
-        .eq('id', idActual);
-
-      if (error) {
-        alert("Error al actualizar los datos: " + error.message);
-      } else {
-        alert(`¡Información actualizada con éxito!`);
-        cargarProductos();
       }
     }
   </script>
