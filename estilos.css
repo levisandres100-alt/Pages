@@ -1,13 +1,17 @@
-/* 1. DEFINICIÓN DE VARIABLES DE COLOR */
+/* ==========================================
+   1. DEFINICIÓN DE VARIABLES DE COLOR
+   ========================================== */
 :root {
-  --primary: #396ae6;        /* Rojo principal para los botones */
-  --primary-hover: #c1121f;  /* Rojo un poco más oscuro cuando pasás el mouse */
-  --btn-text: #ffffff;       /* Texto en BLANCO para que resalte bien sobre el rojo */
+  --primary: #396ae6;        /* Color principal para los botones */
+  --primary-hover: #c1121f;  /* Color un poco más oscuro cuando pasás el mouse */
+  --btn-text: #ffffff;       /* Texto en BLANCO para que resalte bien */
   --dark: #1d3557;
   --light: #f1faee;
 }
 
-/* 2. REGLA GENERAL PARA BOTONES Y ENLACES TIPO BOTÓN */
+/* ==========================================
+   2. REGLA GENERAL PARA BOTONES Y ENLACES
+   ========================================== */
 button, 
 .btn, 
 .sidebar-menu li a, 
@@ -32,16 +36,16 @@ button:hover,
 
 
 /* ==========================================
-   CORRECCIÓN DEFINITIVA DE TEXTOS EN CARRITO
+   3. CORRECCIÓN DEFINITIVA DE TEXTOS EN CARRITO
    ========================================== */
 
-/* 1. Fondo del modal y color base del texto */
+/* Fondo del modal y color base del texto */
 #modal-carrito > div {
   background-color: #ffffff !important;
   color: #1a1a1a !important;
 }
 
-/* 2. Título "Tu Pedido" y divisor */
+/* Título "Tu Pedido" y divisor */
 #modal-carrito h2, 
 #modal-carrito strong, 
 #modal-carrito span {
@@ -49,7 +53,7 @@ button:hover,
   opacity: 1 !important;
 }
 
-/* 3. Textos e ítems generados dinámicamente por carrito.js */
+/* Textos e ítems generados dinámicamente por carrito.js */
 #items-carrito, 
 #items-carrito * {
   color: #1a1a1a !important;   /* Fuerza texto negro/oscuro */
@@ -57,13 +61,30 @@ button:hover,
   font-weight: 600 !important;   /* Le da más realce y nitidez a las letras */
 }
 
-/* 4. Respetar el botón verde de WhatsApp con texto blanco */
+/* Respetar el botón verde de WhatsApp con texto blanco */
 #modal-carrito button {
   color: #ffffff !important;
   opacity: 1 !important;
 }
-/* TÍTULOS PRINCIPALES  */
+
+
+/* ==========================================
+   4. TÍTULOS PRINCIPALES
+   ========================================== */
 h1 {
   color: #e63946 !important; /* Rojo oficial */
   text-align: center;
+}
+
+
+/* ==========================================
+   FORZAR SALTOS DE LÍNEA EN TODAS LAS TARJETAS
+   ========================================== */
+.card small, 
+.product-item small, 
+.producto small, 
+div small {
+  white-space: pre-line !important;
+  display: block !important;
+  margin-top: 4px;
 }
