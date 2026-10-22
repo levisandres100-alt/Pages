@@ -9,19 +9,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Samsung - Hipercel</title>
-    <!-- ARCHIVO CSS GLOBAL CON CACHE BUSTER -->
-    <link rel="stylesheet" href="estilos.css?v=106">
+    <!-- ARCHIVO CSS GLOBAL -->
+    <link rel="stylesheet" href="estilos.css?v=107">
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
     <style>
+        /* Estilos específicos y únicos de esta página (Estructura general) */
         body {
-            background-color: #f4f6f9;
             font-family: 'Arial', sans-serif;
             margin: 40px auto;
             max-width: 600px;
             padding: 20px;
-            background: white;
+            background-color: var(--card-bg, #ffffff);
+            color: var(--card-text, #333333);
             border-radius: 12px;
             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
             transition: background-color 0.3s ease, color 0.3s ease;
@@ -40,21 +41,6 @@
             margin-top: 20px;
         }
 
-        /* --- TARJETAS DE PRODUCTO CON SOPORTE PARA MODO OSCURO --- */
-        .card-producto { 
-            background-color: var(--card-bg, #ffffff) !important;
-            color: var(--card-text, #333333) !important;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 8px;
-            padding: 15px;
-            text-align: center;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            transition: background-color 0.3s ease, color 0.3s ease;
-        }
-
         .card-producto img {
             width: 100%;
             height: 180px; 
@@ -65,9 +51,9 @@
             cursor: pointer; 
         }
 
-        /* --- LA CLAVE SUPREMA PARA LOS SALTOS DE LÍNEA EN LAS DESCRIPCIONES --- */
+        /* Saltos de línea en descripciones */
         .card-producto p.descripcion-texto {
-            white-space: pre-line !important; /* Respeta los Enter del admin */
+            white-space: pre-line !important;
             text-align: left;
             font-size: 14px;
             margin: 10px 0;
@@ -154,32 +140,6 @@
             cursor: pointer;
             line-height: 1;
         }
-
-        /* --- ADAPTACIÓN POR TEMAS (MODOS OSCURO, CAFÉ, AZUL) --- */
-        body.theme-dark {
-            background-color: #121212 !important;
-            color: #e0e0e0 !important;
-            --card-bg: #1e1e1e;
-            --card-text: #ffffff;
-        }
-        body.theme-coffee {
-            background-color: #2b1b17 !important;
-            color: #d7ccc8 !important;
-            --card-bg: #3e2723;
-            --card-text: #fff8e1;
-        }
-        body.theme-blue {
-            background-color: #1a2332 !important;
-            color: #e6f1ff !important;
-            --card-bg: #243044;
-            --card-text: #e6f1ff;
-        }
-
-        #modal-carrito > div {
-            background-color: var(--card-bg, #ffffff) !important;
-            color: var(--card-text, #333333) !important;
-        }
-        
     </style>
 </head>
 <body>
@@ -260,7 +220,6 @@
                     <div class="card-producto">
                         <img src="${prod.imagen_url}" alt="${prod.nombre}" onclick="ampliarImagen('${prod.imagen_url}')">
                         <h4>${prod.nombre}</h4>
-                        <!-- AQUÍ ESTá EL CAMBIO: Agregamos la clase descripcion-texto -->
                         <p class="descripcion-texto">${prod.descripcion || ''}</p>
                         <p><strong>Q${precioProd}</strong></p>
                         

@@ -2,8 +2,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const sidebarContainer = document.getElementById("sidebar-container");
     if (!sidebarContainer) return;
 
-    
-
     // 1. Inyección de Estilos CSS del Sidebar
     const style = document.createElement("style");
     style.innerHTML = `
@@ -104,7 +102,7 @@ document.addEventListener("DOMContentLoaded", function () {
         .btn-sidebar-call {
             display: block;
             width: 100%;
-            background-color: #007bff !important; /* Forzado a azul */
+            background-color: #007bff !important;
             color: white !important;
             border: none;
             padding: 10px;
@@ -119,7 +117,7 @@ document.addEventListener("DOMContentLoaded", function () {
         .btn-sidebar-map {
             display: block;
             width: 100%;
-            background-color: #6c757d !important; /* Forzado a gris */
+            background-color: #6c757d !important;
             color: white !important;
             border: none;
             padding: 10px;
@@ -129,16 +127,37 @@ document.addEventListener("DOMContentLoaded", function () {
             cursor: pointer;
             text-align: center;
         }
-// esto hace que los botones se vean en cuadrados peque
-        .theme-subtitle { font-size: 13px; color: #666; margin-bottom: 10px; }
-        .theme-buttons { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
 
+        .theme-subtitle { font-size: 13px; color: #666; margin-bottom: 10px; }
+        
+        /* 🛠️ ARREGLO DE LOS BOTONES DE TEMA (Cuadros correctos y bien distribuidos) */
+        .theme-buttons { 
+            display: grid; 
+            grid-template-columns: 1fr 1fr; 
+            gap: 8px; 
+        }
+        .btn-theme {
+            width: 100% !important;
+            padding: 10px 8px !important;
+            font-size: 13px !important;
+            font-weight: bold !important;
+            border-radius: 6px !important;
+            cursor: pointer !important;
+            text-align: center !important;
+            margin-top: 0 !important;
+            box-sizing: border-box !important;
+            transition: opacity 0.2s ease, transform 0.1s ease;
+        }
+        .btn-theme:hover {
+            opacity: 0.9;
+            transform: scale(0.98);
+        }
 
         /* Colores de botones de tema protegidos */
         .theme-light { background-color: #f4f6f8 !important; color: #333 !important; border: 1px solid #ccc !important; }
-        .theme-dark { background-color: #1e1e1e !important; color: #fff !important; }
-        .theme-coffee { background-color: #4a2822 !important; color: #d7ccc8 !important; }
-        .theme-blue { background-color: #5073a9 !important; color: #e3f2fd !important; }
+        .theme-dark { background-color: #1e1e1e !important; color: #fff !important; border: 1px solid #444 !important; }
+        .theme-coffee { background-color: #4a2822 !important; color: #d7ccc8 !important; border: none !important; }
+        .theme-blue { background-color: #5073a9 !important; color: #e3f2fd !important; border: none !important; }
         
         /* TEMAS ACTIVOS */
         html.theme-dark, html.theme-dark body {
@@ -268,15 +287,7 @@ document.addEventListener("DOMContentLoaded", function () {
     overlay.addEventListener("click", closeSidebar);
 });
 
-// Función global para cambiar temas
-function setTheme(themeName) {
-    document.documentElement.classList.remove("theme-dark", "theme-coffee", "theme-blue");
-    if (themeName !== "light") {
-        document.documentElement.classList.add("theme-" + themeName);
-    }
-    localStorage.setItem("selectedTheme", themeName);
-}
-// Función global para cambiar temas (Ya la tenías)
+// Función global para cambiar temas (Limpia y única)
 function setTheme(themeName) {
     document.documentElement.classList.remove("theme-dark", "theme-coffee", "theme-blue");
     if (themeName !== "light") {
@@ -285,7 +296,7 @@ function setTheme(themeName) {
     localStorage.setItem("selectedTheme", themeName);
 }
 
-// 🌟 NUEVO: Recuperar y aplicar el tema guardado apenas abre CUALQUIER página
+// 🌟 Recuperar y aplicar el tema guardado apenas abre CUALQUIER página
 (function() {
     const savedTheme = localStorage.getItem("selectedTheme");
     if (savedTheme && savedTheme !== "light") {

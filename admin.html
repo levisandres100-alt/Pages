@@ -85,7 +85,7 @@
           <select id="prodCategoria" required>
             <optgroup label="Smartphones 📲">
               <option value="samsung">Samsung (Smartphones)</option>
-              <option value="iphone">iPhone (Smartphones)</option>
+              <option value="iphone">IPhone (Smartphones)</option>
               <option value="honor">Honor (Smartphones)</option>
               <option value="motorola">Motorola (Smartphones)</option>
               <option value="xiaomi">Xiaomi (Smartphones)</option>
@@ -125,7 +125,7 @@
             <option value="todas">Ver todas las categorías</option>
             <optgroup label="Smartphones 📲">
               <option value="samsung">Samsung (Smartphones)</option>
-              <option value="iphone">iPhone (Smartphones)</option>
+              <option value="iphone">IPhone (Smartphones)</option>
               <option value="honor">Honor (Smartphones)</option>
               <option value="motorola">Motorola (Smartphones)</option>
               <option value="xiaomi">Xiaomi (Smartphones)</option>
@@ -271,7 +271,7 @@
         const item = document.createElement('div');
         item.className = 'product-item';
         
-        const iconoArticulo = (prod.categoria && prod.categoria.endsWith('a')) || prod.articulo === 'smartphone' ? '🎧' : '📲';
+        const iconoArticulo = (prod.categoria && prod.categoria.endsWith('s')) || prod.articulo === 'smartphone' ? '🎧' : '📲';
         const precioTxt = `Q${parseFloat(prod.precio || 0).toFixed(2)}`;
         const estadoTxt = prod.stock > 0 
           ? `<span style="color:#2a9d8f; font-weight:bold;">${prod.stock} unids.</span>` 

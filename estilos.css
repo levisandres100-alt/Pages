@@ -104,3 +104,42 @@ body.theme-dark [class*="card"] p,
 [class*="card"] p {
     white-space: pre-line !important;
 }
+/* ==========================================
+   VARIABLES DE TEMAS (Claro, Oscuro, Café, Azul)
+   ========================================== */
+:root {
+    --card-bg: #ffffff;
+    --card-text: #333333;
+}
+
+html.theme-dark {
+    --card-bg: #1e1e1e;
+    --card-text: #e0e0e0;
+}
+
+html.theme-coffee {
+    --card-bg: #3e2723;
+    --card-text: #efebe9;
+}
+
+html.theme-blue {
+    --card-bg: #3b5998;
+    --card-text: #ffffff;
+}
+
+/* ==========================================
+   TARJETAS DE PRODUCTO DINÁMICAS
+   ========================================== */
+.card-producto { 
+    background-color: var(--card-bg);
+    color: var(--card-text);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    padding: 15px;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
